@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/icon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <base href="/" />
+    <meta name="viewport"
+      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=5.0" />
+  
+    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#181818" />
+    <meta name="theme-color" media="(prefers-color-scheme: light)" content="#f3f3f3" />
+    
+    <style>
+        html
+        {
+            width: 100dvw;
+            height: 100dvh;
+            display: flex;
+        }
+        body
+        {
+            flex: 1;
+            flex-direction: column;
+            color-scheme: dark light;
+        }
+        game-frame
+        {
+        }
+    </style>
+  </head>
+  <body>
+    Game:
+
+    <script src="./dist/index.js"></script>
+    <game-frame stats>
+        <canvas></canvas>
+    </game-frame>
+    
+    <script>
+        let upCommandIsActive = false;
+        let downCommandIsActive = false;
+        let leftCommandIsActive = false;
+        let rightCommandIsActive = false;
+        
+        const position = { x: 100, y: 100 };
+        const size = { width: 50, height: 50 };
+        
+        let currentDeltaTime = 0;
+        
+        const gameFrame = document.querySelector('game-frame');
+        gameFrame.onUpdate = (deltaTimeMs) =>
+        {
+            currentDeltaTime = deltaTimeMs;
+            upCommandIsActive    = gameFrame.defaultPlayerKeys.has('ArrowUp')    || gameFrame.defaultPlayerKeys.has('KeyW');
+            downCommandIsActive  = gameFrame.defaultPlayerKeys.has('ArrowDown')  || gameFrame.defaultPlayerKeys.has('KeyS');
+            leftCommandIsActive  = gameFrame.defaultPlayerKeys.has('ArrowLeft')  || gameFrame.defaultPlayerKeys.has('KeyA');
+            rightCommandIsActive = gameFrame.defaultPlayerKeys.has('ArrowRight') || gameFrame.defaultPlayerKeys.has('KeyD');
+        
+            const inputSpeed = (gameFrame.defaultPlayerKeys.has('ShiftLeft')) ? .5 : .25;
+            if(upCommandIsActive)    { position.y -= inputSpeed * deltaTimeMs; }            
+            if(downCommandIsActive)  { position.y += inputSpeed * deltaTimeMs; }
+            if(leftCommandIsActive)  { position.x -= inputSpeed * deltaTimeMs; }
+            if(rightCommandIsActive) { position.x += inputSpeed * deltaTimeMs; }
+        }
+        gameFrame.onRender = () =>
+        {
+            if(gameFrame.canvasContext == null || gameFrame.canvas == null)
+            {
+                return;
+            }
+        
+            gameFrame.canvasContext.clearRect(0, 0, gameFrame.canvas.width, gameFrame.canvas.height);
+        
+            // draw rectangle
+            gameFrame.canvasContext.fillStyle = '#ff303f';
+            gameFrame.canvasContext.fillRect(position.x - size.width/2, position.y - size.height/2, size.width, size.height);
+        
+            // draw circle
+            gameFrame.canvasContext.fillStyle = '#30ff3f';
+            gameFrame.canvasContext.beginPath();
+            gameFrame.canvasContext.arc(position.x, position.y, size.width/2, 0, Math.PI * 2);
+            gameFrame.canvasContext.fill();
+        
+            // draw triangle
+            gameFrame.canvasContext.fillStyle = '#3f30ff';
+            gameFrame.canvasContext.beginPath();
+            gameFrame.canvasContext.moveTo(position.x, position.y - size.height/2);                // top point
+            gameFrame.canvasContext.lineTo(position.x - size.width/2, position.y + size.height/2); // left point
+            gameFrame.canvasContext.lineTo(position.x + size.width/2, position.y + size.height/2); // right point
+            gameFrame.canvasContext.fill();
+        }
+        gameFrame.beginGame();
+    </script>
+  </body>
+</html>
