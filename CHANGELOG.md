@@ -1,5 +1,12 @@
 # game-frame
 
+## 0.0.5
+
+### Patch Changes
+
+- e8802c4: refactored publish workflow
+- d33456a: reverted last change
+
 ## 0.0.4
 
 ### Patch Changes
