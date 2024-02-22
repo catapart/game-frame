@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.7
+
+### Patch Changes
+
+- ae093ec: initial library implementation
+
 ## 0.0.6
 
 ### Patch Changes
