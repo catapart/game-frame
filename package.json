@@ -1,5 +1,5 @@
 {
-    "name": "@magnit/game-frame",
+    "name": "magnit-game-frame",
     "license": "CC0-1.0",
     "version": "0.0.3",
     "main": "dist/index.js",
