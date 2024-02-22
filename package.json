@@ -5,8 +5,9 @@
     "main": "dist/index.js",
     "module": "dist/index.mjs",
     "types": "dist/index.d.ts",
+    "type": "module",
     "scripts": {
-        "build": "tsup index.ts --format cjs,esm --dts",
+        "build": "tsup index.ts --format cjs,esm --dts --clean",
         "lint": "tsc",
         "release": "tsup index.ts --format cjs,esm --dts && changeset publish"
     },
