@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.4
+
+### Patch Changes
+
+- b883362: additional CI fiddling
+
 ## 0.0.3
 
 ### Patch Changes
