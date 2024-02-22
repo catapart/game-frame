@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.6
+
+### Patch Changes
+
+- a2032e6: renamed project
+
 ## 0.0.5
 
 ### Patch Changes
