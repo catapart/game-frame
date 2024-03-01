@@ -33,8 +33,8 @@
   <body>
     Game:
 
-    <script src="./dist/index.js"></script>
-    <game-frame stats>
+    <script src="./dist/index.js" type="module"></script>
+    <game-frame>
         <canvas></canvas>
     </game-frame>
     
@@ -91,7 +91,13 @@
             gameFrame.canvasContext.lineTo(position.x + size.width/2, position.y + size.height/2); // right point
             gameFrame.canvasContext.fill();
         }
-        gameFrame.beginGame();
+        setTimeout(() =>
+        {
+          // only necessary because inline script embedded in html
+          // js needs to release to browser so that browser can update
+          // the runtime with the new component's properties
+          gameFrame.beginGame();
+        }, 1);
     </script>
   </body>
 </html>
