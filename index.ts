@@ -1,1 +1,2 @@
 import './game-frame.component.ts';
+import { GameFrameComponent, GameLoopOptions, GameLoopOptions_Default, GameLoop, GamePointerData, PointerButtonIdentifier, PointerButtonsMap } from './game-frame.component';
