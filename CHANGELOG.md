@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.8
+
+### Patch Changes
+
+- 4eb8d22: fixed index file so library is exposed
+
 ## 0.0.7
 
 ### Patch Changes
