@@ -8,7 +8,11 @@ A single-file custom-element that exposes an Update and Render loop, manages pla
 ```
 ##### TS
 ```ts
-import 'path/to/game-frame.component.ts';
+// js
+import 'path/to/game-frame.component.js';
+// npm: 
+// import 'magnit-game-frame';
+// import { GameFrameComponent[, etc...] } from 'magnit-game-frame';
 
 /* [...] */
 

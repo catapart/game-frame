@@ -693,7 +693,9 @@ export class GamePointerData
     }
 }
 
-const PointerButtonsMap = new Map<number, Set<'left'|'middle'|'right'|'back'|'forward'|number>>(
+export type PointerButtonIdentifier = 'left'|'middle'|'right'|'back'|'forward'|number;
+
+export const PointerButtonsMap = new Map<number, Set<PointerButtonIdentifier>>(
     [
         [0, new Set()],
         [1, new Set(['left'])],
