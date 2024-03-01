@@ -1,4 +1,110 @@
-// import style from './game-frame.component.module.css';
+
+
+export class GamePointerData
+{
+    altitudeAngle?: number = 0;
+    azimuthAngle?: number = 0;
+    buttons: number = 0;
+    activeButtons: Set<'left'|'right'|'middle'|'back'|'forward'|number> = new Set();
+    clientX: number = 0;
+    clientY: number = 0;
+    height: number = 0;
+    isPrimary: boolean = false;
+    layerX?: number = 0;
+    layerY?: number = 0;
+    movementX: number = 0;
+    movementY: number = 0;
+    offsetX: number = 0;
+    offsetY: number = 0;
+    pageX: number = 0;
+    pageY: number = 0;
+    pointerId: number = 0;
+    pointerType: string = "";
+    pressure: number = 0;
+    screenX: number = 0;
+    screenY: number = 0;
+    tangentialPressure: number = 0;
+    tiltX: number = 0;
+    tiltY: number = 0;
+    timeStamp: number = 0;
+    twist: number = 0;
+    width: number = 0;
+    x: number = 0;
+    y: number = 0;
+    frameX: number = 0;
+    frameY: number = 0;
+
+    constructor(event?: PointerEvent)
+    {
+        this.altitudeAngle = (event as any)?.altitudeAngle ?? this ;
+        this.azimuthAngle = (event as any)?.azimuthAngle ?? this ;
+        this.buttons = event?.buttons ?? this.buttons ;
+        this.clientX = event?.clientX ?? this.clientX ;
+        this.clientY = event?.clientY ?? this.clientY ;
+        this.height = event?.height ?? this.height ;
+        this.isPrimary = event?.isPrimary ?? this.isPrimary ;
+        this.layerX = (event as any)?.layerX ?? this ;
+        this.layerY = (event as any)?.layerY ?? this ;
+        this.movementX = event?.movementX ?? this.movementX ;
+        this.movementY = event?.movementY ?? this.movementY ;
+        this.offsetX = event?.offsetX ?? this.offsetX ;
+        this.offsetY = event?.offsetY ?? this.offsetY ;
+        this.pageX = event?.pageX ?? this.pageX ;
+        this.pageY = event?.pageY ?? this.pageY ;
+        this.pointerId = event?.pointerId ?? this.pointerId ;
+        this.pointerType = event?.pointerType ?? this.pointerType ;
+        this.pressure = event?.pressure ?? this.pressure ;
+        this.screenX = event?.screenX ?? this.screenX ;
+        this.screenY = event?.screenY ?? this.screenY ;
+        this.tangentialPressure = event?.tangentialPressure ?? this.tangentialPressure ;
+        this.tiltX = event?.tiltX ?? this.tiltX ;
+        this.tiltY = event?.tiltY ?? this.tiltY ;
+        this.timeStamp = event?.timeStamp ?? this.timeStamp ;
+        this.twist = event?.twist ?? this.twist ;
+        this.width = event?.width ?? this.width ;
+        this.x = event?.x ?? this.x;
+        this.y = event?.y ?? this.y;
+    }
+}
+
+export type PointerButtonIdentifier = 'left'|'middle'|'right'|'back'|'forward'|number;
+
+export const PointerButtonsMap = new Map<number, Set<PointerButtonIdentifier>>(
+    [
+        [0, new Set()],
+        [1, new Set(['left'])],
+        [2, new Set(['right'])],
+        [3, new Set(['left', 'right'])],
+        [4, new Set(['middle'])],
+        [5, new Set(['left', 'middle'])],
+        [6, new Set(['right', 'middle'])],
+        [7, new Set(['left', 'right', 'middle'])],
+        [8, new Set(['back'])],
+        [9, new Set(['left', 'back'])],
+        [10, new Set(['right', 'back'])],
+        [11, new Set(['left', 'right', 'back'])],
+        [12, new Set(['middle', 'back'])],
+        [13, new Set(['left', 'middle', 'back'])],
+        [14, new Set(['right', 'middle', 'back'])],
+        [15, new Set(['left', 'right', 'middle', 'back'])],
+        [16, new Set(['forward'])],
+        [17, new Set(['left', 'forward'])],
+        [18, new Set(['right', 'forward'])],
+        [19, new Set(['left', 'right', 'forward'])],
+        [20, new Set(['middle', 'forward'])],
+        [21, new Set(['left', 'middle', 'forward'])],
+        [22, new Set(['right', 'middle', 'forward'])],
+        [23, new Set(['left', 'right', 'middle', 'forward'])],
+        [24, new Set(['back', 'forward'])],
+        [25, new Set(['left', 'back', 'forward'])],
+        [26, new Set(['right', 'back', 'forward'])],
+        [27, new Set(['left', 'right', 'back', 'forward'])],
+        [28, new Set(['middle', 'back', 'forward'])],
+        [29, new Set(['left', 'middle', 'back', 'forward'])],
+        [30, new Set(['right', 'middle', 'back', 'forward'])],
+        [31, new Set(['left', 'right', 'middle', 'back', 'forward'])]
+    ]
+);
 
 const style = `
 :host
@@ -36,6 +142,13 @@ const style = `
     width: 200px;
     font-size: 10px;
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+
+    display: none;
+}
+
+:host([stats]) [part="statistics"]
+{
+    display: block;
 }
 
 [part="statistics"] ul
@@ -625,109 +738,3 @@ export class GameLoop
         this.#loopAnimationFrameId = requestAnimationFrame(this.#onLoop.bind(this));
     }
 }
-
-export class GamePointerData
-{
-    altitudeAngle?: number = 0;
-    azimuthAngle?: number = 0;
-    buttons: number = 0;
-    activeButtons: Set<'left'|'right'|'middle'|'back'|'forward'|number> = new Set();
-    clientX: number = 0;
-    clientY: number = 0;
-    height: number = 0;
-    isPrimary: boolean = false;
-    layerX?: number = 0;
-    layerY?: number = 0;
-    movementX: number = 0;
-    movementY: number = 0;
-    offsetX: number = 0;
-    offsetY: number = 0;
-    pageX: number = 0;
-    pageY: number = 0;
-    pointerId: number = 0;
-    pointerType: string = "";
-    pressure: number = 0;
-    screenX: number = 0;
-    screenY: number = 0;
-    tangentialPressure: number = 0;
-    tiltX: number = 0;
-    tiltY: number = 0;
-    timeStamp: number = 0;
-    twist: number = 0;
-    width: number = 0;
-    x: number = 0;
-    y: number = 0;
-    frameX: number = 0;
-    frameY: number = 0;
-
-    constructor(event?: PointerEvent)
-    {
-        this.altitudeAngle = (event as any)?.altitudeAngle ?? this ;
-        this.azimuthAngle = (event as any)?.azimuthAngle ?? this ;
-        this.buttons = event?.buttons ?? this.buttons ;
-        this.clientX = event?.clientX ?? this.clientX ;
-        this.clientY = event?.clientY ?? this.clientY ;
-        this.height = event?.height ?? this.height ;
-        this.isPrimary = event?.isPrimary ?? this.isPrimary ;
-        this.layerX = (event as any)?.layerX ?? this ;
-        this.layerY = (event as any)?.layerY ?? this ;
-        this.movementX = event?.movementX ?? this.movementX ;
-        this.movementY = event?.movementY ?? this.movementY ;
-        this.offsetX = event?.offsetX ?? this.offsetX ;
-        this.offsetY = event?.offsetY ?? this.offsetY ;
-        this.pageX = event?.pageX ?? this.pageX ;
-        this.pageY = event?.pageY ?? this.pageY ;
-        this.pointerId = event?.pointerId ?? this.pointerId ;
-        this.pointerType = event?.pointerType ?? this.pointerType ;
-        this.pressure = event?.pressure ?? this.pressure ;
-        this.screenX = event?.screenX ?? this.screenX ;
-        this.screenY = event?.screenY ?? this.screenY ;
-        this.tangentialPressure = event?.tangentialPressure ?? this.tangentialPressure ;
-        this.tiltX = event?.tiltX ?? this.tiltX ;
-        this.tiltY = event?.tiltY ?? this.tiltY ;
-        this.timeStamp = event?.timeStamp ?? this.timeStamp ;
-        this.twist = event?.twist ?? this.twist ;
-        this.width = event?.width ?? this.width ;
-        this.x = event?.x ?? this.x;
-        this.y = event?.y ?? this.y;
-    }
-}
-
-export type PointerButtonIdentifier = 'left'|'middle'|'right'|'back'|'forward'|number;
-
-export const PointerButtonsMap = new Map<number, Set<PointerButtonIdentifier>>(
-    [
-        [0, new Set()],
-        [1, new Set(['left'])],
-        [2, new Set(['right'])],
-        [3, new Set(['left', 'right'])],
-        [4, new Set(['middle'])],
-        [5, new Set(['left', 'middle'])],
-        [6, new Set(['right', 'middle'])],
-        [7, new Set(['left', 'right', 'middle'])],
-        [8, new Set(['back'])],
-        [9, new Set(['left', 'back'])],
-        [10, new Set(['right', 'back'])],
-        [11, new Set(['left', 'right', 'back'])],
-        [12, new Set(['middle', 'back'])],
-        [13, new Set(['left', 'middle', 'back'])],
-        [14, new Set(['right', 'middle', 'back'])],
-        [15, new Set(['left', 'right', 'middle', 'back'])],
-        [16, new Set(['forward'])],
-        [17, new Set(['left', 'forward'])],
-        [18, new Set(['right', 'forward'])],
-        [19, new Set(['left', 'right', 'forward'])],
-        [20, new Set(['middle', 'forward'])],
-        [21, new Set(['left', 'middle', 'forward'])],
-        [22, new Set(['right', 'middle', 'forward'])],
-        [23, new Set(['left', 'right', 'middle', 'forward'])],
-        [24, new Set(['back', 'forward'])],
-        [25, new Set(['left', 'back', 'forward'])],
-        [26, new Set(['right', 'back', 'forward'])],
-        [27, new Set(['left', 'right', 'back', 'forward'])],
-        [28, new Set(['middle', 'back', 'forward'])],
-        [29, new Set(['left', 'middle', 'back', 'forward'])],
-        [30, new Set(['right', 'middle', 'back', 'forward'])],
-        [31, new Set(['left', 'right', 'middle', 'back', 'forward'])]
-    ]
-);
