@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.9
+
+### Patch Changes
+
+- e4ccaa8: fixed types export, implemented hiding statistics
+
 ## 0.0.8
 
 ### Patch Changes
