@@ -11,7 +11,7 @@ A single-file custom-element that exposes an Update and Render loop, manages pla
 // js
 import 'path/to/game-frame.component.js';
 // npm: 
-// import 'magnit-game-frame';
+// import 'magnit-game-frame/index';
 // import { GameFrameComponent[, etc...] } from 'magnit-game-frame';
 
 /* [...] */
