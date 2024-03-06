@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.11
+
+### Patch Changes
+
+- 741bd2c: added width and height attribute settings
+
 ## 0.0.10
 
 ### Patch Changes
