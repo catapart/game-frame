@@ -109,10 +109,10 @@ export const PointerButtonsMap = new Map<number, Set<PointerButtonIdentifier>>(
 const style = `
 :host
 {
-    display: grid;
+    display: inline-grid;
     position: relative;
-    width: 400px;
-    height: 200px;
+    width: var(--width, auto);
+    height: var(--height, auto);
     background-color: field;
     color: fieldtext;
     border: solid 1px var(--border-color, fieldtext);
@@ -205,7 +205,12 @@ const RESIZE_OFFSET = { x: 0, y: 0 };
 
 const COMPONENT_TAG_NAME = 'game-frame';
 export class GameFrameComponent extends HTMLElement
-{    
+{
+    static observedAttributes = [
+        'width',
+        'height'
+    ];
+
     #boundFunctions = 
     {
         document_onKeyDown: this.document_onKeyDown.bind(this),
@@ -628,9 +633,13 @@ export class GameFrameComponent extends HTMLElement
     }
     attributeChangedCallback(attributeName: string, _oldValue: string, newValue: string) 
     {
-        if(attributeName == 'open')
+        if(attributeName == 'width')
         {
-            
+            this.style.setProperty('--width', newValue + 'px');
+        }
+        else if(attributeName == 'height')
+        {
+            this.style.setProperty('--height', newValue + 'px');
         }
     }
 }
