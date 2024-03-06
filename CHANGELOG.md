@@ -1,5 +1,11 @@
 # game-frame
 
+## 0.0.10
+
+### Patch Changes
+
+- e87cb25: added canvas size management toggle
+
 ## 0.0.9
 
 ### Patch Changes
