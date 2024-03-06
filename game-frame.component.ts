@@ -232,6 +232,7 @@ export class GameFrameComponent extends HTMLElement
     onRender?: () => void|Promise<void>;
 
     allowPointerEventPropagation: boolean = false;
+    manageCanvasSize: boolean = true;
 
     componentAccessories: Map<string, HTMLElement> = new Map();
 
@@ -265,6 +266,8 @@ export class GameFrameComponent extends HTMLElement
 
         const resizeObserver = new ResizeObserver((entries) =>
         {
+            if(this.manageCanvasSize == false) { return; }
+
             for( const entry of entries)
             {
                 if(this.canvas != null)
@@ -600,8 +603,11 @@ export class GameFrameComponent extends HTMLElement
         if(this.canvas != null)
         {
             this.canvasContext = this.canvas.getContext('2d');
-            this.canvas.setAttribute('width', (this.offsetWidth - RESIZE_OFFSET.x).toString());
-            this.canvas.setAttribute('height', (this.offsetHeight - RESIZE_OFFSET.y).toString());
+            if(this.manageCanvasSize == true)
+            {
+                this.canvas.setAttribute('width', (this.offsetWidth - RESIZE_OFFSET.x).toString());
+                this.canvas.setAttribute('height', (this.offsetHeight - RESIZE_OFFSET.y).toString());
+            }
         }
     }
 
